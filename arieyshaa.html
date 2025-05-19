@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Personal website of Nur Arieysha - Library Management student, cat lover, and baking enthusiast">
+    <title>Nur Arieysha's Personal Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #b37f8c;
+            --accent-color: #e3256b;
+            --bg-color: #ffe4e1;
+            --text-color: #5a3a3a;
+            --header-bg: #ecc9c9;
+            --border-color: #FFB6C1;
+            --tab-bg: #FFB6C1;
+            --tab-hover: #FF69B4;
+            --section-bg: white;
+            --tab-transition: 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lora', 'Times New Roman', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 5vw, 2.25rem);
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            object-fit: cover;
+            max-height: 250px;
+        }
+
+        .tab-container {
+            display: flex;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .tablink {
+            background-color: var(--tab-bg);
+            color: white;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 0.8rem 0.5rem;
+            font-size: 0.95rem;
+            flex-grow: 1;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-family: 'Lora', 'Times New Roman', serif;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tablink::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .tablink:hover {
+            background-color: var(--tab-hover);
+        }
+
+        .tablink:hover::after {
+            width: 100%;
+        }
+
+        .tablink.active {
+            background-color: var(--accent-color) !important;
+            color: white !important;
+        }
+
+        .tablink:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: -3px;
+            position: relative;
+            z-index: 2;
+        }
+
+        main {
+            flex: 1;
+            padding: 0 1rem;
+        }
+
+        .tabcontent {
+            color: var(--text-color);
+            display: none;
+            padding: 2rem 1rem;
+            animation: fadeEffect 0.5s;
+            background-color: var(--section-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        @keyframes fadeEffect {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tabcontent section {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .tabcontent section:nth-child(1) { animation-delay: 0.1s; }
+        .tabcontent section:nth-child(2) { animation-delay: 0.2s; }
+        .tabcontent section:nth-child(3) { animation-delay: 0.3s; }
+
+        h2 {
+            color: var(--primary-color);
+            font-family: 'Playfair Display', serif;
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            text-align: center;
+            margin-bottom: 1.25rem;
+            text-shadow: 1px 1px var(--bg-color);
+            font-family: 'Playfair Display', serif;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.25rem 0;
+        }
+
+        table, th, td {
+            border: 2px solid #a3573a;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f7c9d6;
+            color: #000;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fceff1;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .fancy-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border: 4px solid var(--border-color);
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(255, 105, 180, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: zoom-in;
+        }
+
+        .fancy-img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        
+        .contact-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .contact-link:hover, .contact-link:focus {
+            color: #a32551;
+            text-decoration: underline;
+        }
+        
+        /* Accessibility skip link */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 0;
+        }
+        
+        footer {
+            background-color: var(--header-bg);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        footer p {
+            color: white;
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover, footer a:focus {
+            opacity: 0.8;
+        }
+
+        .bio-section {
+            margin-bottom: 2rem;
+        }
+
+        .friend-section, .family-section {
+            margin: 1.5rem 0;
+            padding-bottom: 1rem;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .friend-section:last-child, .family-section:last-child {
+            border-bottom: none;
+        }
+
+        /* Lightbox styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            cursor: zoom-out;
+        }
+
+        .lightbox img {
+            max-height: 90vh;
+            max-width: 90vw;
+            object-fit: contain;
+        }
+
+        /* Floating social media buttons */
+        .social-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+        }
+        
+        .social-float a {
+            background: var(--accent-color);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .social-float a:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .tab-container {
+                flex-direction: column;
+            }
+            
+            .tablink {
+                width: 100%;
+                border-bottom: 1px solid rgba(255,255,255,0.3);
+            }
+            
+            .gallery {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .fancy-img {
+                height: 200px;
+            }
+            
+            .tabcontent {
+                padding: 1.5rem 0.75rem;
+            }
+
+            .social-float {
+                flex-direction: row;
+                bottom: 10px;
+                right: 10px;
+            }
+
+            .social-float a {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            main {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+            
+            .tabcontent {
+                padding: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  
+  <div id="header">
+    <img src="gambar/HEADER.jpg" alt="Website banner featuring decorative elements and Nur Arieysha's name" class="banner-img">
+
+    <header>
+      <h1>Welcome to Nur Arieysha's Personal Website</h1>
+    </header>
+  </div>
+
+  <div class="tab-container" role="tablist" aria-label="Main Navigation">
+    <button class="tablink" onclick="openPage('about-me', this, '#FEADBD')" id="defaultOpen" role="tab" aria-selected="true" aria-controls="about-me">About Me</button>
+    <button class="tablink" onclick="openPage('hobbies', this, '#FDCAD4')" role="tab" aria-selected="false" aria-controls="hobbies">Hobbies</button>
+    <button class="tablink" onclick="openPage('contact', this, '#FEE4E9')" role="tab" aria-selected="false" aria-controls="contact">Contact</button>
+    <button class="tablink" onclick="openPage('my-cat', this, '#FDD3DB')" role="tab" aria-selected="false" aria-controls="my-cat">My Cat</button>
+    <button class="tablink" onclick="openPage('my-friends', this, '#FFD9E8')" role="tab" aria-selected="false" aria-controls="my-friends">My Friends</button>
+    <button class="tablink" onclick="openPage('my-family', this, '#FADADD')" role="tab" aria-selected="false" aria-controls="my-family">My Family</button>
+    <button class="tablink" onclick="openPage('education', this, '#FF8096')" role="tab" aria-selected="false" aria-controls="education">Education</button>
+  </div>
+
+  <main id="main-content">
+    <div id="about-me" class="tabcontent" role="tabpanel" aria-labelledby="about-me-tab">
+      <section>
+        <h3>&#127800; Hi! My name is Nur Arieysha binti Mustapa &#127800;</h3>
+        
+        <div class="bio-section">
+          <p>I'm a Library Management student at UiTM Kedah, originally from Sungai Udang, Melaka. 
+          My passion for organizing information and making knowledge accessible makes this field perfect for me!</p>
+          <p>When I'm not studying, you'll find me helping my family make and sell traditional Malaysian aiskrim during breaks. 
+          I also gained hands-on customer service experience working at KFC after my second semester.</p>
+          <p>Beyond academics, I love expressing my creativity through baking cakes and makeup artistry. 
+          My taste buds crave spicy ayam gepuk, and I'll never say no to Llao Llao frozen yogurt! I'm known for my positive attitude, 
+          love for teamwork, and making meaningful connections with people.</p>
+          <p>Life has taught me valuable lessons (including relationship challenges) that helped shape me into a responsible, 
+          resilient person who's always eager to learn and grow.</p>
+        </div>
+      </section>
+      
+      <section>
+        <h3>&#127827; My Favorite Pictures &#127827;</h3>
+        <div class="gallery">
+          <img src="gambar/bajukurung.jpg" alt="Nur Arieysha wearing traditional Malay outfit" class="fancy-img">
+          <img src="gambar/raya1.jpg" alt="Celebrating Hari Raya with family" class="fancy-img">
+          <img src="gambar/penang1.jpg" alt="Enjoying a trip to Penang" class="fancy-img">
+          <img src="gambar/newyear.jpg" alt="New Year celebration with friends" class="fancy-img">
+          <img src="gambar/osh3.jpg" alt="New Year celebration with friends" class="fancy-img">
+          <img src="gambar/osh4.jpg" alt="New Year celebration with friends" class="fancy-img">
+          <img src="gambar/osh5.jpg" alt="New Year celebration with friends" class="fancy-img">
+          <img src="gambar/osh6.jpg" alt="New Year celebration with friends" class="fancy-img">
+        </div>
+      </section>
+    </div>
+
+    <div id="hobbies" class="tabcontent" role="tabpanel" aria-labelledby="hobbies-tab">
+      <section>
+        <h3>&#127799; Hobbies &#127799;</h3>
+
+        <div class="bio-section">
+          <p>
+            <span class="highlight">&#127812; Baking &#127812;:</span> 
+            I have a deep passion for baking, especially cookies and cakes. There's something so comforting and fulfilling about being in the kitchen, 
+            surrounded by the aroma of fresh bakes. I love experimenting with new recipes, perfecting each batch with care and patience, 
+            and creating delicious treats that bring joy to others — especially when I see their happy reactions.
+          </p>
+
+          <p>
+            <span class="highlight">&#127812; Makeup & Styling &#127812;:</span> 
+            I love doing makeup and trying out different looks for every occasion. Dressing up and putting together cute outfits helps me express my mood and style. 
+            In my free time, I enjoy watching fashion videos and scrolling through aesthetic content.
+          </p>
+
+          <p>
+            <span class="highlight">&#127812; Driving &#127812;:</span> 
+            I love driving, especially through scenic routes. It gives me a sense of freedom and peace — a moment to clear my mind and just enjoy the journey.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <div class="gallery">
+          <img src="gambar/vet.jpg" alt="Taking my cat to the veterinarian" class="fancy-img">
+          <img src="gambar/cookies.jpg" alt="Freshly baked cookies I made" class="fancy-img">
+          <img src="gambar/kuih.jpg" alt="Traditional Malaysian kuih I prepared" class="fancy-img">
+          <img src="gambar/sebelum.jpg" alt="Makeup transformation before and after" class="fancy-img">
+          <img src="gambar/tng.jpg" alt="Travel photo at a scenic location" class="fancy-img">
+          <img src="gambar/perlis.jpg" alt="Travel photo at a scenic location" class="fancy-img">
+          <img src="gambar/myvi.jpg" alt="Travel photo at a scenic location" class="fancy-img">
+          <img src="gambar/sakit.jpg" alt="Travel photo at a scenic location" class="fancy-img">
+        </div>
+      </section>
+    </div>
+
+    <div id="contact" class="tabcontent" role="tabpanel" aria-labelledby="contact-tab">
+      <section>
+        <h3>&#127802; Contact &#127802;</h3>
+        <p>
+          You can contact me via Gmail at 
+          <a href="mailto:arieyshaarieysha@gmail.com" class="contact-link">arieyshaarieysha@gmail.com</a> 
+          or follow me on Instagram: 
+          <a href="https://www.instagram.com/oshhhhhh._/" target="_blank" rel="noopener noreferrer" class="contact-link">@oshhhhhh._</a>.
+        </p>
+      </section>
+      
+      <section>
+        <div class="gallery">
+          <img src="gambar/instagram.jpg" alt="Screenshot of my Instagram profile" class="fancy-img">
+          <img src="gambar/contact.jpg" alt="Screenshot of my Instagram profile" class="fancy-img">
+        </div>
+      </section>
+    </div>
+
+    <div id="my-cat" class="tabcontent" role="tabpanel" aria-labelledby="my-cat-tab">
+      <section>
+        <h3>&#127826; My Lovely Cat &#127826;</h3>
+        
+        <div class="bio-section">
+          <p>
+            I really love cats, and they have always meant so much to me. I've had many cats in my life, including Bella, Jenny, Chemok, Chemek, and many others. 
+            Each of them had their own personality, and I loved them deeply.
+          </p>
+          <p>
+            Sadly, most of them have passed away, and it still makes me very sad. I remember taking care of them when they were sick, bringing them to the vet, 
+            giving them medicine, and staying by their side when they were weak.
+          </p>
+          <p>
+            I even got sick myself because I was so focused on looking after them, but I didn't mind, because they were like family to me. 
+            Even though they are no longer with me, I will always treasure the memories we shared.
+          </p>
+        </div>
+      </section>
+      
+      <section>
+        <div class="gallery">
+          <img src="gambar/sangkar.jpg" alt="My cat in a cage during vet visit" class="fancy-img">
+          <img src="gambar/chemok1.jpg" alt="My cat Chemok looking cute" class="fancy-img">
+          <img src="gambar/chemek2.jpg" alt="My cat Chemek sleeping peacefully" class="fancy-img">
+          <img src="gambar/first.jpg" alt="My first cat as a pet" class="fancy-img">
+          <img src="gambar/gemok.jpg" alt="My chubby cat looking adorable" class="fancy-img">
+          <img src="gambar/ramai.jpg" alt="My cat Bella posing for camera" class="fancy-img">
+          <img src="gambar/zip.jpg" alt="My cat Bella posing for camera" class="fancy-img">
+          <img src="gambar/bell.jpg" alt="My cat Bella posing for camera" class="fancy-img">
+          <img src="gambar/cat1.jpg" alt="My cat Bella posing for camera" class="fancy-img">
+          <img src="gambar/cat2.jpg" alt="My cat Bella posing for camera" class="fancy-img">
+          <img src="gambar/cat3.jpg" alt="My cat Bella posing for camera" class="fancy-img">
+          <img src="gambar/cat4.jpg" alt="My cat Bella posing for camera" class="fancy-img">
+        </div>
+      </section>
+    </div>
+
+    <div id="my-friends" class="tabcontent" role="tabpanel" aria-labelledby="my-friends-tab">
+      <section>
+        <h3>&#128158; My University Friends &#128158;</h3>
+        <p>
+          I'm so lucky to have friends like Nik, Mell, Izzah, Nurin, Wani, and Mell in university.
+        </p>
+      </section>
+      
+      <section>
+        <div class="friend-section">
+          <p><span class="highlight">&#127872; Nik &#127872;</span></p>  
+          <p>
+            Nik is super kind, always pays for my food first and helps me out a lot. She's always there to hang out with me, speaks softly, but when she's mad, 
+            she definitely knows how to widen her eyes. I really appreciate everything she does for me.
+          </p>
+        </div>
+
+        <div class="friend-section">
+          <p><span class="highlight">&#127872; Izzah &#127872;</span></p>
+          <p>
+            Izzah is another gem, we've been friends since semester 1 and used to go to the food court together. She's always treating me, lending me her stuff,
+            and I'll never forget how kind her family is. They even invited me to their home and Izzah took me to Penang Central once, which was so thoughtful.
+          </p>
+        </div>
+
+        <div class="friend-section">
+          <p><span class="highlight">&#127872; Nurin &#127872;</span></p>
+          <p>
+            Nurin was my roommate, and we've been friends since the start too. She's the queen of dry jokes that always make me laugh,
+            plus she's paid for my food before, and we often swap things with each other. Every time we're together, there's always something funny happening.
+          </p>
+        </div>
+
+        <div class="friend-section">
+          <p><span class="highlight">&#127872; Wani and Mell &#127872;</span></p>
+          <p>
+            Wani and Mell are just as amazing, always there for a good laugh, and we have such a good time whenever we hang out. Honestly, 
+            I'm lucky to have all these wonderful people in my life.
+          </p>
+        </div>
+      </section>
+      
+      <section>
+        <div class="gallery">
+          <img src="gambar/kawan1.jpg" alt="Group photo with university friends at an event" class="fancy-img">
+          <img src="gambar/kawan7.jpg" alt="Fun moment captured with friends" class="fancy-img">
+          <img src="gambar/kawan9.jpg" alt="Celebrating a special occasion with friends" class="fancy-img">
+          <img src="gambar/kawan6.jpg" alt="Casual hangout with my closest friends" class="fancy-img">
+          <img src="gambar/friend1.jpg" alt="Casual hangout with my closest friends" class="fancy-img">
+          <img src="gambar/friend2.jpg" alt="Casual hangout with my closest friends" class="fancy-img">
+          <img src="gambar/friend3.jpg" alt="Casual hangout with my closest friends" class="fancy-img">
+          <img src="gambar/friend4.jpg" alt="Casual hangout with my closest friends" class="fancy-img">
+          <img src="gambar/friend5.jpg" alt="Casual hangout with my closest friends" class="fancy-img">
+          <img src="gambar/friend6.jpg" alt="Casual hangout with my closest friends" class="fancy-img">
+          <img src="gambar/friend7.jpg" alt="Casual hangout with my closest friends" class="fancy-img">
+          <img src="gambar/friend8.jpg" alt="Casual hangout with my closest friends" class="fancy-img">
+        </div>
+      </section>
+    </div>
+
+    <div id="my-family" class="tabcontent" role="tabpanel" aria-labelledby="my-family-tab">
+      <section>
+        <h3>&#127804; My Family &#127804;</h3>
+        
+        <div class="bio-section">
+          <p>
+            I'm really lucky to have such an amazing family who always supports me. My parents are my biggest cheerleaders, always encouraging me to do my best, 
+            and my siblings never fail to make me laugh even on bad days. I'm truly grateful to have them in my life.. 
+          </p>
+          <p><span class="highlight">&#128188; Ayah &#128188;</span></p>
+            My dad, Ayah, has always been there for me. He used to tie my hair every morning before school, 
+            making sure I was ready for the day. And when no one else could pick me up, he'd drive the oil truck to get me. 
+            One of the moments I'll never forget is when the canteen worker didn't give me my change, and Ayah was there to comfort me. Mama, on the other hand,
+            has always been so supportive. I remember on the first day of UPSR, I forgot to bring my IC, and Mama, even though she was just getting off work, w
+            ent all the way home to get it and brought 
+            it to me at school. 
+          </p>
+        </div>
+      </section>
+      
+      <section>
+        <div class="family-section">
+          <p><span class="highlight">&#129493; Mama &#129493;</span></p>
+          <p>
+            Mama has always been such a great listener, like a friend, and as I've grown up, she's become someone I can talk to about anything. A
+            yah has always protected and supported me through everything.
+          </p>
+        </div>
+        
+        <div class="family-section">
+          <p><span class="highlight">&#129493; Misha &#129493;</span></p>
+          <p>
+            My older sister, Misha, has kept many of my biggest secrets. She's always been there to support me, and she often gives me money when I need it. 
+            She's someone I can count on no matter what.
+          </p>
+        </div>
+        
+        <div class="family-section">
+          <p><span class="highlight">&#129312; Apis &#129312;</span></p>
+          <p>
+            Then there's my younger brother, Apis. He doesn't always help out, but when he does, it really makes a difference.
+            We also spend a lot of time talking and just enjoying each other's company. I'm really grateful for every one of them because no matter what happens, 
+            my family is always there for me.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <div class="gallery">
+          <img src="gambar/family1.jpg" alt="Family portrait during a celebration" class="fancy-img">
+          <img src="gambar/family2.jpg" alt="Casual family gathering at home" class="fancy-img">
+          <img src="gambar/family3.jpg" alt="Family vacation memory" class="fancy-img">
+          <img src="gambar/family4.jpg" alt="Special occasion with my loving family" class="fancy-img">
+          <img src="gambar/family5.jpg" alt="Special occasion with my loving family" class="fancy-img">
+          <img src="gambar/besar.jpg" alt="Special occasion with my loving family" class="fancy-img">
+          <img src="gambar/andak.jpg" alt="Special occasion with my loving family" class="fancy-img">
+          <img src="gambar/good.jpg" alt="Special occasion with my loving family" class="fancy-img">
+        </div>
+      </section>
+    </div>
+
+    <div id="education" class="tabcontent" role="tabpanel" aria-labelledby="education-tab">
+      <section>
+        <h3>&#128175; Education &#128175;</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Place</th>
+              <th>Level</th>
+              <th>Field of Study</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2012–2017</td>
+              <td>SJKC Poh Lan</td>
+              <td>Primary</td>
+              <td>–</td>
+            </tr>
+            <tr>
+              <td>2018–2023</td>
+              <td>SMK Sungai Udang</td>
+              <td>Secondary</td>
+              <td>Sport Science</td>
+            </tr>
+            <tr>
+              <td>2023–2026</td>
+              <td>Universiti Teknologi MARA (UiTM), Kedah Branch</td>
+              <td>Diploma</td>
+              <td>Library Informatics</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      
+      <section>
+        <div class="gallery">
+          <img src="gambar/smksu.jpg" alt="SMK Sungai Udang school building" class="fancy-img">
+          <img src="gambar/ss.jpg" alt="Sport Science class activities" class="fancy-img">
+          <img src="gambar/ekonomi.jpg" alt="Economics class learning session" class="fancy-img">
+          <img src="gambar/123.jpg" alt="School event participation" class="fancy-img">
+          <img src="gambar/bajuputih.jpg" alt="School activity with classmates" class="fancy-img">
+          <img src="gambar/1234.jpg" alt="School activity with classmates" class="fancy-img">
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="social-float">
+    <a href="https://www.instagram.com/oshhhhhh._/" target="_blank"> Instagram</a>
+    <a href="mailto:arieyshaarieysha@gmail.com"> Email</a>
+  </div>
+
+  <footer>
+    <p>© 2025 Nur Arieysha. All rights reserved. </p>
+    <p>
+      Connect with me:
+      <a href="https://www.instagram.com/oshhhhhh._/" target="_blank" rel="noopener noreferrer">Instagram</a> |
+      <a href="mailto:arieyshaarieysha@gmail.com">Email</a>
+    </p>
+  </footer>
+
+  <script>
+    function openPage(pageName, elmnt, color) {
+      // Hide all tab content
+      const tabcontent = document.getElementsByClassName("tabcontent");
+      for (let i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+        tabcontent[i].setAttribute('aria-hidden', 'true');
+      }
+      
+      // Remove active class from all tabs
+      const tablinks = document.getElementsByClassName("tablink");
+      for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove('active');
+        tablinks[i].setAttribute('aria-selected', 'false');
+      }
+      
+      // Show specific tab content and add active class
+      document.getElementById(pageName).style.display = "block";
+      document.getElementById(pageName).setAttribute('aria-hidden', 'false');
+      elmnt.classList.add('active');
+      elmnt.setAttribute('aria-selected', 'true');
+      
+      // Update URL hash without reloading
+      history.pushState(null, null, `#${pageName}`);
+      
+      // Announce tab change for screen readers
+      document.getElementById(pageName).focus();
+    }
+
+    // Handle opening default tab or URL hash tab on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      let activeTab = 'about-me';
+      const hash = window.location.hash.substring(1);
+      
+      if (hash && document.getElementById(hash)) {
+        activeTab = hash;
+      }
+      
+      // Find the button that controls this tab
+      const tabButton = document.querySelector(`[aria-controls="${activeTab}"]`) || document.getElementById('defaultOpen');
+      tabButton.click();
+      
+      // Handle back/forward navigation
+      window.addEventListener('popstate', function() {
+        const hash = window.location.hash.substring(1);
+        if (hash && document.getElementById(hash)) {
+          const tabButton = document.querySelector(`[aria-controls="${hash}"]`);
+          if (tabButton) {
+            const color = window.getComputedStyle(tabButton).backgroundColor;
+            openPage(hash, tabButton, color);
+          }
+        }
+      });
+    });
+
+    // Lightbox functionality
+    document.querySelectorAll('.fancy-img').forEach(img => {
+      img.onclick = () => {
+        const lightbox = document.createElement('div');
+        lightbox.className = 'lightbox';
+        
+        const fullImg = document.createElement('img');
+        fullImg.src = img.src;
+        fullImg.alt = img.alt;
+        
+        lightbox.appendChild(fullImg);
+        document.body.appendChild(lightbox);
+        
+        lightbox.onclick = () => lightbox.remove();
+      };
+    });
+  </script>
+</body>
+</html>
